@@ -30,9 +30,8 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import static org.mockito.Mockito.*;
-import sigea.main.MsgResourceListener;
+import sigea.main.UdpMsgAcquisition;
 //import org.slf4j.Logger;
-
 /**
  * If tests for reading Udp packets fail randomly, increase wait time in
  * readFirst
@@ -40,9 +39,9 @@ import sigea.main.MsgResourceListener;
  * @author Pasquale Livecchi
  */
 @RunWith(CdiRunner.class)
-@AdditionalClasses(MsgResourceListener.class)
+@AdditionalClasses(UdpMsgAcquisition.class)
 //@Slf4j
-public class MsgResourceCacheTest {
+public class UdpMsgAcquisitionTest {
 
     private final TestScheduler ts = new TestScheduler();
     private MsgConfig config;
@@ -54,7 +53,7 @@ public class MsgResourceCacheTest {
     @Io
     private final Scheduler io = Schedulers.io();
     @Mock
-    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(MsgResourceCacheTest.class);
+    private final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(UdpMsgAcquisitionTest.class);
     @Inject
     private HealthReadingObserver healthReadings;
     @Inject

@@ -34,17 +34,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @ApplicationScoped
-public class MsgResourceListener extends MsgAcquisition {
+public class UdpMsgAcquisition extends MsgAcquisition {
 
     private final MsgReadingSubscription msgSub = new MsgReadingSubscription();
 
-    private class MsgStackInterface implements ObservableMsgInterface {
+    private class UdpMsgInterface implements ObservableMsgInterface {
 
         private final Seq<Message> msgItems;
         private final int udpPort;
         private Observable<BatchOfMsgReadings> cachedMsgReadings;
 
-        public MsgStackInterface(int udpPort, Seq<Message> msgs) {
+        public UdpMsgInterface(int udpPort, Seq<Message> msgs) {
             this.udpPort = udpPort;//UdpInetUtil.findRandomUnusedUdpPort();
             this.msgItems = msgs;
         }
@@ -167,7 +167,7 @@ public class MsgResourceListener extends MsgAcquisition {
     @Synchronized
     public void loadMsgs(@Observes MsgConfig msgConfig) {
         loadBatchOfMsgReadings(msgConfig.getMsgs(), msgSub, ms -> msgConfig.getMsgConnections().stream()
-                .filter(mc -> mc.getNameId().equalsIgnoreCase(ms.getMsgConn())).findAny().get().getPort(), MsgStackInterface::new);
+                .filter(mc -> mc.getNameId().equalsIgnoreCase(ms.getMsgConn())).findAny().get().getPort(), UdpMsgInterface::new);
     }
 
 }
